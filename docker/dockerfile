@@ -1,0 +1,11 @@
+FROM gradle:8.5 AS build
+COPY --chown=gradle:gradle . /home/gradle/src
+WORKDIR /home/gradle/src
+RUN gradle build
+
+FROM openjdk:17-jre-hotspot
+EXPOSE 8080
+COPY --from=build /home/gradle/src/build/libs/spring-petshop-kotlin-2.6.2.jar /app/
+RUN bash -c 'touch /app/spring-petshop-kotlin-2.6.2.jar'
+CMD ["java", "-jar", "app.jar"]
+ENTRYPOINT ["java", "-XX:+UnlockExperimentalVMOptions", "-XX:+UseCGroupMemoryLimitForHeap", "-Djava.security.egd=file:/dev/./urandom","-jar","/app/spring-petclinic-kotlin-2.6.2.jar"]
