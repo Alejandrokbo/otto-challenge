@@ -1,0 +1,130 @@
+{
+	"info": {
+		"_postman_id": "228ab0a0-9f18-442c-8112-0c5a804d1520",
+		"name": "Petshop",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "10410905"
+	},
+	"item": [
+		{
+			"name": "Create",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"Katy Purry\",\r\n    \"type\": \"cat\",\r\n    \"color\": \"black\",\r\n    \"parents\": {\r\n        \"mother\": \"c3cb207f-2661-4d34-9743-75d23888f442\",\r\n        \"father\": \"8400905c-f3e0-4bca-b370-adeb9bef0809\"\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/api/pets/create",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"pets",
+						"create"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Populate",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/pets/populate",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"pets",
+						"populate"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetOne",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/pets/pet/b9c7f5b4-7a23-49f0-b387-ffecc0af89ba",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"pets",
+						"pet",
+						"b9c7f5b4-7a23-49f0-b387-ffecc0af89ba"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "FindAll",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/pets/all",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"pets",
+						"all"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"Katy Purry\",\r\n    \"type\": \"cat\",\r\n    \"color\": \"black\",\r\n    \"parents\": {\r\n        \"mother\": \"c3cb207f-2661-4d34-9743-75d23888f442\",\r\n        \"father\": \"8400905c-f3e0-4bca-b370-adeb9bef0809\"\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/api/pets/update/",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"pets",
+						"update",
+						""
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
