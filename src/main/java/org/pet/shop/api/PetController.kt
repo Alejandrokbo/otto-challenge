@@ -1,10 +1,8 @@
 package org.pet.shop.api
 
-import org.pet.shop.dto.ParentsDTO
-import org.pet.shop.dto.PetDTO
+import org.pet.shop.dto.*
 import org.pet.shop.service.PetshopService
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 import java.util.*
@@ -17,30 +15,39 @@ class PetController {
     lateinit var petService: PetshopService
 
     @PostMapping("/create")
-    fun createPet(@RequestBody pet: PetDTO): ResponseEntity<String> {
-        petService.newPet(pet)
-        return ResponseEntity<String>("Pet ${pet.name} created", HttpStatus.OK)
+    fun createPet(@RequestBody pet: PetDTO): ResponseEntity<ApiResponse> {
+        val createdPet = petService.newPet(pet)
+        return response(ApiResponse(message = "Pet ${createdPet.name} created", status = StatusResponse.OK.name, data = pet))
     }
 
     @PutMapping("/update/{id}")
-    fun updatePet(@PathVariable id: UUID, @RequestBody petDTO: PetDTO): ResponseEntity<PetDTO> {
+    fun updatePet(@PathVariable id: UUID, @RequestBody petDTO: PetDTO): ResponseEntity<ApiResponse> {
         val petUpdated = petService.updatePet(id, petDTO)
-        return ResponseEntity<PetDTO>(petUpdated, if (petUpdated.name.isNotBlank()) HttpStatus.OK else HttpStatus.NOT_FOUND)
+        return if (petUpdated.id.isNotBlank()) {
+            response(ApiResponse(message = "Pet ${petUpdated.name} updated", status = StatusResponse.OK.name, data = petUpdated))
+        } else {
+            response(ApiResponse(message = "Pet not found", status = StatusResponse.NOT_FOUND.name))
+        }
     }
 
     @GetMapping("/all")
-    fun getAllPets(): ResponseEntity<List<PetDTO>> {
-        return ResponseEntity<List<PetDTO>>(petService.getAllPets(), HttpStatus.OK)
+    fun getAllPets(): ResponseEntity<ApiResponse> {
+        val pets = petService.getAllPets()
+        return response(ApiResponse(message = "Showing ${pets.size} pets.", status = StatusResponse.OK.name, data = pets))
     }
 
     @GetMapping("/pet/{id}")
-    fun getPetById(@PathVariable id: UUID): ResponseEntity<PetDTO> {
+    fun getPetById(@PathVariable id: UUID): ResponseEntity<ApiResponse> {
         val pet = petService.getPetById(id)
-        return ResponseEntity<PetDTO>(PetDTO(pet), if (pet.name.isNotBlank()) HttpStatus.OK else HttpStatus.NOT_FOUND)
+        return if (pet.name.isNotBlank()) {
+            response(ApiResponse(message = "Showing pet ${pet.name}", status = StatusResponse.OK.name, data = pet))
+        } else {
+            response(ApiResponse(message = "Pet not found", status = StatusResponse.NOT_FOUND.name))
+        }
     }
 
     @GetMapping("/populate")
-    fun populateDatabase(): ResponseEntity<String> {
+    fun populateDatabase(): ResponseEntity<ApiResponse> {
         // Creating Tom
         val tom = PetDTO(
             name = "Tom",
@@ -70,6 +77,6 @@ class PetController {
             )
         )
         petService.newPet(pet3)
-        return ResponseEntity<String>("Database populated", HttpStatus.OK)
+        return response(ApiResponse(message = "Database populated", status = StatusResponse.OK.name))
     }
 }
