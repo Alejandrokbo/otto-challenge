@@ -13,4 +13,4 @@
 ### With this Postman collection you can test the application: [COLLECTION JSON](src/main/resources/Petshop.postman_collection.json) 
 
 # ENDPOINTS
-* For populate the database with a simple relationship between Pet and Owner, you can use the endpoint `Populate` `GET /api/pets/populate`
+* For populate the database with a simple relationship between Pet and Parents, you can use the endpoint `Populate` `GET /api/pets/populate`
