@@ -25,8 +25,8 @@ data class PetDTO(
         pet.type,
         pet.color,
         ParentsDTO(
-            pet.mother?.name ?: "",
-            pet.father?.name ?: ""
+            pet.mother?.id.toString() ?: "",
+            pet.father?.id.toString() ?: ""
         )
     )
 }

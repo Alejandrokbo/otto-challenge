@@ -55,18 +55,7 @@ class PetshopServiceImp implements PetshopService {
         var pets = petRepository.findAll();
         var petDTOs = new ArrayList<PetDTO>();
         for (Pet pet : pets) {
-            var parents = new ParentsDTO();
-            parents.setFather(pet.getFather() != null ? pet.getFather().getId().toString() : "");
-            parents.setMother(pet.getMother() != null ? pet.getMother().getId().toString() : "");
-
-            var petDTO = new PetDTO();
-            petDTO.setId(pet.getId().toString());
-            petDTO.setName(pet.getName());
-            petDTO.setType(pet.getType());
-            petDTO.setColor(pet.getColor());
-            petDTO.setParents(parents);
-
-            petDTOs.add(petDTO);
+            petDTOs.add(new PetDTO(pet));
         }
         return petDTOs;
     }
@@ -94,15 +83,6 @@ class PetshopServiceImp implements PetshopService {
         saveParents(petDTO, pet);
 
         var result = petRepository.save(pet);
-        return new PetDTO(
-                result.getId().toString(),
-                result.getName(),
-                result.getType(),
-                result.getColor(),
-                new ParentsDTO(
-                        result.getFather() != null ? result.getFather().getId().toString() : "",
-                        result.getMother() != null ? result.getMother().getId().toString() : ""
-                )
-        );
+        return new PetDTO(result);
     }
 }

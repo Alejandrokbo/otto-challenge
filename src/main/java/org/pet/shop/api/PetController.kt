@@ -40,7 +40,7 @@ class PetController {
     fun getPetById(@PathVariable id: UUID): ResponseEntity<ApiResponse> {
         val pet = petService.getPetById(id)
         return if (pet.name.isNotBlank()) {
-            response(ApiResponse(message = "Showing pet ${pet.name}", status = StatusResponse.OK.name, data = pet))
+            response(ApiResponse(message = "Showing pet ${pet.name}", status = StatusResponse.OK.name, data = PetDTO(pet)))
         } else {
             response(ApiResponse(message = "Pet not found", status = StatusResponse.NOT_FOUND.name))
         }
